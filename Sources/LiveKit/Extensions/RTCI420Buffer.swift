@@ -18,7 +18,7 @@ import Foundation
 
 @_implementationOnly import WebRTC
 
-extension LKRTCI420Buffer {
+extension RTCI420Buffer {
     func toPixelBuffer() -> CVPixelBuffer? {
         // default options
         let options = [
@@ -51,7 +51,7 @@ extension LKRTCI420Buffer {
             let dstUV = CVPixelBufferGetBaseAddressOfPlane(outputPixelBuffer, 1)
             let dstUVStride = CVPixelBufferGetBytesPerRowOfPlane(outputPixelBuffer, 1)
 
-            LKRTCYUVHelper.i420(toNV12: dataY,
+            RTCYUVHelper.i420(toNV12: dataY,
                                 srcStrideY: strideY,
                                 srcU: dataU,
                                 srcStrideU: strideU,
@@ -69,7 +69,7 @@ extension LKRTCI420Buffer {
             let bytesPerRow = CVPixelBufferGetBytesPerRow(outputPixelBuffer)
 
             if pixelFormat == kCVPixelFormatType_32BGRA {
-                LKRTCYUVHelper.i420(toARGB: dataY,
+                RTCYUVHelper.i420(toARGB: dataY,
                                     srcStrideY: strideY,
                                     srcU: dataU,
                                     srcStrideU: strideU,
@@ -80,7 +80,7 @@ extension LKRTCI420Buffer {
                                     width: width,
                                     height: height)
             } else if pixelFormat == kCVPixelFormatType_32ARGB {
-                LKRTCYUVHelper.i420(toBGRA: dataY,
+                RTCYUVHelper.i420(toBGRA: dataY,
                                     srcStrideY: strideY,
                                     srcU: dataU,
                                     srcStrideU: strideU,

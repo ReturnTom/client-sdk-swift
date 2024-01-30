@@ -46,10 +46,10 @@ public class KeyProviderOptions {
 
 public class BaseKeyProvider: Loggable {
     var options: KeyProviderOptions
-    var rtcKeyProvider: LKRTCFrameCryptorKeyProvider?
+    var rtcKeyProvider: RTCFrameCryptorKeyProvider?
     public init(isSharedKey: Bool, sharedKey: String? = nil) {
         options = KeyProviderOptions(sharedKey: isSharedKey)
-        rtcKeyProvider = LKRTCFrameCryptorKeyProvider(ratchetSalt: options.ratchetSalt,
+        rtcKeyProvider = RTCFrameCryptorKeyProvider(ratchetSalt: options.ratchetSalt,
                                                       ratchetWindowSize: options.ratchetWindowSize,
                                                       sharedKeyMode: isSharedKey,
                                                       uncryptedMagicBytes: options.uncryptedMagicBytes,
@@ -62,7 +62,7 @@ public class BaseKeyProvider: Loggable {
 
     public init(options: KeyProviderOptions = KeyProviderOptions()) {
         self.options = options
-        rtcKeyProvider = LKRTCFrameCryptorKeyProvider(ratchetSalt: options.ratchetSalt,
+        rtcKeyProvider = RTCFrameCryptorKeyProvider(ratchetSalt: options.ratchetSalt,
                                                       ratchetWindowSize: options.ratchetWindowSize,
                                                       sharedKeyMode: options.sharedKey,
                                                       uncryptedMagicBytes: options.uncryptedMagicBytes)

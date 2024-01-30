@@ -20,9 +20,9 @@ import Foundation
 
 protocol TransportDelegate: AnyObject {
     func transport(_ transport: Transport, didUpdateState state: RTCPeerConnectionState) async
-    func transport(_ transport: Transport, didGenerateIceCandidate iceCandidate: LKRTCIceCandidate) async
-    func transport(_ transport: Transport, didOpenDataChannel dataChannel: LKRTCDataChannel) async
-    func transport(_ transport: Transport, didAddTrack track: LKRTCMediaStreamTrack, rtpReceiver: LKRTCRtpReceiver, streams: [LKRTCMediaStream]) async
-    func transport(_ transport: Transport, didRemoveTrack track: LKRTCMediaStreamTrack) async
+    func transport(_ transport: Transport, didGenerateIceCandidate iceCandidate: RTCIceCandidate) async
+    func transport(_ transport: Transport, didOpenDataChannel dataChannel: RTCDataChannel) async
+    func transport(_ transport: Transport, didAddTrack track: RTCMediaStreamTrack, rtpReceiver: RTCRtpReceiver, streams: [RTCMediaStream]) async
+    func transport(_ transport: Transport, didRemoveTrack track: RTCMediaStreamTrack) async
     func transportShouldNegotiate(_ transport: Transport) async
 }

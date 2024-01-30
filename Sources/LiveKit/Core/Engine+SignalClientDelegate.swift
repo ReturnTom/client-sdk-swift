@@ -39,7 +39,7 @@ extension Engine: SignalClientDelegate {
         await _room?.signalClient(signalClient, didUpdateConnectionState: connectionState, oldState: oldState, disconnectError: disconnectError)
     }
 
-    func signalClient(_ signalClient: SignalClient, didReceiveIceCandidate iceCandidate: LKRTCIceCandidate, target: Livekit_SignalTarget) async {
+    func signalClient(_ signalClient: SignalClient, didReceiveIceCandidate iceCandidate: RTCIceCandidate, target: Livekit_SignalTarget) async {
         guard let transport = target == .subscriber ? subscriber : publisher else {
             log("Failed to add ice candidate, transport is nil for target: \(target)", .error)
             return
@@ -54,7 +54,7 @@ extension Engine: SignalClientDelegate {
         await _room?.signalClient(signalClient, didReceiveIceCandidate: iceCandidate, target: target)
     }
 
-    func signalClient(_ signalClient: SignalClient, didReceiveAnswer answer: LKRTCSessionDescription) async {
+    func signalClient(_ signalClient: SignalClient, didReceiveAnswer answer: RTCSessionDescription) async {
         do {
             let publisher = try requirePublisher()
             try await publisher.set(remoteDescription: answer)
@@ -65,7 +65,7 @@ extension Engine: SignalClientDelegate {
         await _room?.signalClient(signalClient, didReceiveAnswer: answer)
     }
 
-    func signalClient(_ signalClient: SignalClient, didReceiveOffer offer: LKRTCSessionDescription) async {
+    func signalClient(_ signalClient: SignalClient, didReceiveOffer offer: RTCSessionDescription) async {
         log("Received offer, creating & sending answer...")
 
         guard let subscriber else {

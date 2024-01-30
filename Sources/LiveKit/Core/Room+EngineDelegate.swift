@@ -125,7 +125,7 @@ extension Room: EngineDelegate {
         }
     }
 
-    func engine(_: Engine, didAddTrack track: LKRTCMediaStreamTrack, rtpReceiver: LKRTCRtpReceiver, stream: LKRTCMediaStream) async {
+    func engine(_: Engine, didAddTrack track: RTCMediaStreamTrack, rtpReceiver: RTCRtpReceiver, stream: RTCMediaStream) async {
         let parts = stream.streamId.unpack()
         let trackId = !parts.trackId.isEmpty ? parts.trackId : track.trackId
 
@@ -150,7 +150,7 @@ extension Room: EngineDelegate {
         }
     }
 
-    func engine(_: Engine, didRemoveTrack track: LKRTCMediaStreamTrack) async {
+    func engine(_: Engine, didRemoveTrack track: RTCMediaStreamTrack) async {
         // find the publication
         guard let publication = _state.remoteParticipants.values.map(\._state.trackPublications.values).joined()
             .first(where: { $0.sid == track.trackId }) else { return }

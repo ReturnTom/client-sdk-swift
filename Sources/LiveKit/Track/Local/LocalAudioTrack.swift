@@ -22,7 +22,7 @@ import Foundation
 public class LocalAudioTrack: Track, LocalTrack, AudioTrack {
     init(name: String,
          source: Track.Source,
-         track: LKRTCMediaStreamTrack,
+         track: RTCMediaStreamTrack,
          reportStatistics: Bool)
     {
         super.init(name: name,
@@ -48,7 +48,7 @@ public class LocalAudioTrack: Track, LocalTrack, AudioTrack {
             "googAutoGainControl2": options.experimentalAutoGainControl.toString(),
         ]
 
-        let audioConstraints = DispatchQueue.liveKitWebRTC.sync { LKRTCMediaConstraints(mandatoryConstraints: nil,
+        let audioConstraints = DispatchQueue.liveKitWebRTC.sync { RTCMediaConstraints(mandatoryConstraints: nil,
                                                                                         optionalConstraints: constraints) }
 
         let audioSource = Engine.createAudioSource(audioConstraints)

@@ -44,7 +44,7 @@ extension Engine: TransportDelegate {
         }
     }
 
-    func transport(_ transport: Transport, didGenerateIceCandidate iceCandidate: LKRTCIceCandidate) async {
+    func transport(_ transport: Transport, didGenerateIceCandidate iceCandidate: RTCIceCandidate) async {
         do {
             log("sending iceCandidate")
             try await signalClient.sendCandidate(candidate: iceCandidate, target: transport.target)
@@ -53,7 +53,7 @@ extension Engine: TransportDelegate {
         }
     }
 
-    func transport(_ transport: Transport, didAddTrack track: LKRTCMediaStreamTrack, rtpReceiver: LKRTCRtpReceiver, streams: [LKRTCMediaStream]) async {
+    func transport(_ transport: Transport, didAddTrack track: RTCMediaStreamTrack, rtpReceiver: RTCRtpReceiver, streams: [RTCMediaStream]) async {
         guard !streams.isEmpty else {
             log("Received onTrack with no streams!", .warning)
             return
@@ -71,19 +71,19 @@ extension Engine: TransportDelegate {
         }
     }
 
-    func transport(_ transport: Transport, didRemoveTrack track: LKRTCMediaStreamTrack) async {
+    func transport(_ transport: Transport, didRemoveTrack track: RTCMediaStreamTrack) async {
         if transport.target == .subscriber {
             _delegate.notifyAsync { await $0.engine(self, didRemoveTrack: track) }
         }
     }
 
-    func transport(_ transport: Transport, didOpenDataChannel dataChannel: LKRTCDataChannel) async {
+    func transport(_ transport: Transport, didOpenDataChannel dataChannel: RTCDataChannel) async {
         log("Server opened data channel \(dataChannel.label)(\(dataChannel.readyState))")
 
         if subscriberPrimary, transport.target == .subscriber {
             switch dataChannel.label {
-            case LKRTCDataChannel.labels.reliable: await subscriberDataChannel.set(reliable: dataChannel)
-            case LKRTCDataChannel.labels.lossy: await subscriberDataChannel.set(lossy: dataChannel)
+            case RTCDataChannel.labels.reliable: await subscriberDataChannel.set(reliable: dataChannel)
+            case RTCDataChannel.labels.lossy: await subscriberDataChannel.set(lossy: dataChannel)
             default: log("Unknown data channel label \(dataChannel.label)", .warning)
             }
         }

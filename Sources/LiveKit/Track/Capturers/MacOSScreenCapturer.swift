@@ -36,14 +36,14 @@ import Foundation
         private var _scStream: SCStream?
 
         // cached frame for resending to maintain minimum of 1 fps
-        private var _lastFrame: LKRTCVideoFrame?
+        private var _lastFrame: RTCVideoFrame?
         private var _resendTimer: Task<Void, Error>?
 
         /// The ``ScreenShareCaptureOptions`` used for this capturer.
         /// It is possible to modify the options but `restartCapture` must be called.
         public var options: ScreenShareCaptureOptions
 
-        init(delegate: LKRTCVideoCapturerDelegate, captureSource: MacOSScreenCaptureSource, options: ScreenShareCaptureOptions) {
+        init(delegate: RTCVideoCapturerDelegate, captureSource: MacOSScreenCaptureSource, options: ScreenShareCaptureOptions) {
             self.captureSource = captureSource
             self.options = options
             super.init(delegate: delegate)
@@ -144,7 +144,7 @@ import Foundation
             // notify capturer for dimensions
             defer { self.dimensions = targetDimensions }
 
-            let rtcBuffer = LKRTCCVPixelBuffer(pixelBuffer: pixelBuffer,
+            let rtcBuffer = RTCCVPixelBuffer(pixelBuffer: pixelBuffer,
                                                adaptedWidth: targetDimensions.width,
                                                adaptedHeight: targetDimensions.height,
                                                cropWidth: sourceDimensions.width,
@@ -152,7 +152,7 @@ import Foundation
                                                cropX: Int32(contentRect.origin.x * scaleFactor),
                                                cropY: Int32(contentRect.origin.y * scaleFactor))
 
-            let rtcFrame = LKRTCVideoFrame(buffer: rtcBuffer,
+            let rtcFrame = RTCVideoFrame(buffer: rtcBuffer,
                                            rotation: ._0,
                                            timeStampNs: timeStampNs)
 
@@ -180,7 +180,7 @@ import Foundation
             guard let delegate, let frame = _lastFrame else { return }
 
             // create a new frame with new time stamp
-            let newFrame = LKRTCVideoFrame(buffer: frame.buffer,
+            let newFrame = RTCVideoFrame(buffer: frame.buffer,
                                            rotation: frame.rotation,
                                            timeStampNs: Self.createTimeStampNs())
 

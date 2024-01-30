@@ -378,7 +378,7 @@ extension RemoteTrackPublication {
             log("[adaptiveStream] disabling sid: \(sid), videoRenderersCount: \(videoRenderers.count), \(viewsString)")
         }
 
-        if let videoTrack = track?.mediaTrack as? LKRTCVideoTrack {
+        if let videoTrack = track?.mediaTrack as? RTCVideoTrack {
             log("VideoTrack.shouldReceive: \(isEnabled)")
             DispatchQueue.liveKitWebRTC.sync { videoTrack.shouldReceive = isEnabled }
         }

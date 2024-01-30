@@ -264,11 +264,11 @@ extension Room: SignalClientDelegate {
 
     func signalClient(_: SignalClient, didUpdateConnectionState _: ConnectionState, oldState _: ConnectionState, disconnectError _: LiveKitError?) async {}
 
-    func signalClient(_: SignalClient, didReceiveAnswer _: LKRTCSessionDescription) async {}
+    func signalClient(_: SignalClient, didReceiveAnswer _: RTCSessionDescription) async {}
 
-    func signalClient(_: SignalClient, didReceiveOffer _: LKRTCSessionDescription) async {}
+    func signalClient(_: SignalClient, didReceiveOffer _: RTCSessionDescription) async {}
 
-    func signalClient(_: SignalClient, didReceiveIceCandidate _: LKRTCIceCandidate, target _: Livekit_SignalTarget) async {}
+    func signalClient(_: SignalClient, didReceiveIceCandidate _: RTCIceCandidate, target _: Livekit_SignalTarget) async {}
 
     func signalClient(_: SignalClient, didPublishLocalTrack _: Livekit_TrackPublishedResponse) async {}
 

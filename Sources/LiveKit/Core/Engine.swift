@@ -234,11 +234,11 @@ class Engine: Loggable {
 
 extension Engine {
     func configureTransports(connectResponse: SignalClient.ConnectResponse) async throws {
-        func makeConfiguration() -> LKRTCConfiguration {
+        func makeConfiguration() -> RTCConfiguration {
             let connectOptions = _state.connectOptions
 
             // Make a copy, instead of modifying the user-supplied RTCConfiguration object.
-            let rtcConfiguration = LKRTCConfiguration.liveKitDefault()
+            let rtcConfiguration = RTCConfiguration.liveKitDefault()
 
             // Set iceServers provided by the server
             rtcConfiguration.iceServers = connectResponse.rtcIceServers
@@ -287,10 +287,10 @@ extension Engine {
 
             // data over pub channel for backwards compatibility
 
-            let reliableDataChannel = await publisher.dataChannel(for: LKRTCDataChannel.labels.reliable,
+            let reliableDataChannel = await publisher.dataChannel(for: RTCDataChannel.labels.reliable,
                                                                   configuration: Engine.createDataChannelConfiguration())
 
-            let lossyDataChannel = await publisher.dataChannel(for: LKRTCDataChannel.labels.lossy,
+            let lossyDataChannel = await publisher.dataChannel(for: RTCDataChannel.labels.lossy,
                                                                configuration: Engine.createDataChannelConfiguration(maxRetransmits: 0))
 
             await publisherDataChannel.set(reliable: reliableDataChannel)
