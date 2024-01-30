@@ -81,7 +81,7 @@ public class CameraCapturer: VideoCapturer {
     private lazy var adapter: VideoCapturerDelegateAdapter = .init(cameraCapturer: self)
 
     // RTCCameraVideoCapturer used internally for now
-    private lazy var capturer: RTCCameraVideoCapturer = DispatchQueue.liveKitWebRTC.sync { RTCCameraVideoCapturer(delegate: adapter) }
+    public lazy var capturer: RTCCameraVideoCapturer = DispatchQueue.liveKitWebRTC.sync { RTCCameraVideoCapturer(delegate: adapter) }
 
     init(delegate: RTCVideoCapturerDelegate, options: CameraCaptureOptions) {
         self.options = options
